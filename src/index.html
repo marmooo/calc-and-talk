@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA&#45;142997649&#45;1"></script> -->
+    <!-- <script> -->
+    <!--   window.dataLayer = window.dataLayer || []; -->
+    <!--   function gtag(){dataLayer.push(arguments);} -->
+    <!--   gtag('js', new Date()); -->
+    <!--  -->
+    <!--   gtag('config', 'UA&#45;142997649&#45;1'); -->
+    <!-- </script> -->
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calc and Talk</title>
+    <meta name="description" content="四則演算の英文をリスニングしてタイプ暗算するゲームです。">
+    <script>
+      // if ('serviceWorker' in navigator) {
+      //   window.addEventListener('load', function() {
+      //     navigator.serviceWorker.register('/calc-and-talk/sw.js');
+      //   });
+      // }
+    </script>
+    <script async src="https://cse.google.com/cse.js?cx=partner-pub-6459713332128733:7164795498"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/calc-and-talk/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/calc-and-talk/favicon/favicon-48x48.png">
+    <link rel="manifest" href="/calc-and-talk/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/calc-and-talk/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/calc-and-talk/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/calc-and-talk/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <style>
+      #counter {
+        font-size:10rem; width:12rem; height:12rem; line-height:12rem; border-radius: 50%;
+        background:tomato; margin:auto; }
+      #catsWalk { height:30vh; }
+      #langRadio { max-height:100px; overflow-y:scroll; }
+      img,canvas { cursor:pointer; touch-action:none; }
+      html { overflow-x:hidden; }
+      .calc { font-size:2rem; width:4rem; }
+      @media (max-width: 768px) and (orientation: landscape) {
+        .calc { font-size: 1.5rem; width:3rem; }
+      }
+      html[data-theme="dark"] { filter: invert(1) hue-rotate(180deg); }
+      @-moz-document url-prefix() { html[data-theme="dark"] { background-color:black; } }
+      html[data-theme="dark"] img { filter: invert(1) hue-rotate(180deg); }
+      html[data-theme="dark"] canvas { filter: invert(1) hue-rotate(180deg); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand navbar-light">
+        <div class="container">
+          <a class="navbar-brand" href="/calc-and-talk/">
+            <img src="/calc-and-talk/favicon/original.svg" width="32" height="32">
+            Calc and Talk
+          </a>
+          <div class="navbar-nav">
+            <select id="courseOption" class="form-select form-select-sm" aria-label="学年">
+              <option selected>全部</option>
+              <option>＋−</option>
+              <option>＋−×</option>
+              <option>＋</option>
+              <option>−</option>
+              <option>×</option>
+              <option>÷</option>
+            </select>
+            <select id="gradeOption" class="form-select form-select-sm" aria-label="学年">
+              <option selected>Lv.1</option>
+              <option>Lv.2</option>
+              <option>Lv.3</option>
+            </select>
+            <button title="音声を自動再生" id="toggleVoice" class="btn p-0 ms-1">
+              <svg id="voiceOn" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-volume-up-fill" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/><path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.483 5.483 0 0 1 11.025 8a5.483 5.483 0 0 1-1.61 3.89l.706.706z"/><path d="M8.707 11.182A4.486 4.486 0 0 0 10.025 8a4.486 4.486 0 0 0-1.318-3.182L8 5.525A3.489 3.489 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"/></svg>
+              <svg id="voiceOff" class="d-none" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-volume-mute-fill" viewBox="0 0 16 16"><path d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zm7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0z"/></svg>
+            </button>
+            <button title="ダークモード切替" id="toggleDarkMode" class="fs-4 btn p-0 ms-1">🌓</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <noscript>
+        <div class="alert alert-info text-center">JavaScript を ON にしてください</div>
+      </noscript>
+      <div id="nosupport" class="alert alert-warning text-center d-none">
+        お使いのブラウザは動作しない可能性があります。
+        2021年現在、Desktop / Android の Chrome のみサポートしています。
+      </div>
+      <div id="gameStart" class="text-center d-none">
+        <div id="countdown">
+          <div id="counter">3</div>
+          <img onclick="catNyan()" src="kohacu.webp" width="128" height="128" alt="">
+        </div>
+      </div>
+      <div id="scorePanel" class="text-center pb-3 d-none">
+        <h3 class="pt-3">
+          <ruby>結果<rp>(</rp><rt>けっか</rt><rp>)</rp></ruby>
+        </h3>
+        <img onclick="catNyan()" src="kohacu.webp" width="128" height="128" alt="">
+        <p>クリアしたのは・・・</p>
+        <div class="h2 pb-3">
+          <span id="score" class="h1">0</span> /
+          <span id="total" class="h1">0</span>
+          <ruby>問<rp>(</rp><rt>もん</rt><rp>)</rp></ruby>！
+        </div>
+        <button id="restartButton" type="button" class="btn btn-primary btn-lg m-1">リスタート</button>
+      </div>
+      <div id="playPanel">
+        <div class="row">
+          <div class="col-sm">
+            <p><ruby>四則演算<rt>しそくえんざん</rt></ruby>の<ruby>英文<rt>えいぶん</rt></ruby>をリスニングして<ruby>暗算<rt>あんざん</rt></ruby>し、<ruby>英語<rt>えいご</rt></ruby>で<ruby>答<rt>こた</rt></ruby>えるゲームです。
+            </p>
+          </div>
+          <div class="col-sm">
+            <div class="alert alert-info text-center">
+              <div class="h5">
+                <label><ruby>時間<rp>(</rp><rt>じかん</rt><rp>)</rp></ruby>:</label>
+                <span id="time" class="ms-1">120秒 / 120秒</span>
+              </div>
+              <div>
+                <button id="startButton" class="btn btn-primary btn-lg m-1">スタート</button>
+                <button onclick="showAnswer()" class="btn btn-secondary btn-lg m-1">こたえ</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center pt-3">
+          <div class="pb-3 h1">問題: <span id="answer"></span>
+            <button id="respeak" title="もう一度聴く" class="btn btn-outline-secondary btn-lg ms-2">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+            </button>
+          </div>
+          <div id="recognitionPanel" class="text-center pt-1">
+            <span id="reply" class="pe-2 h1"></span>
+            <button id="startVoiceInput" title="音声入力を開始する" class="btn btn-outline-secondary rounded-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="64" height="64"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+            </button>
+            <button id="stopVoiceInput" title="音声入力を終了する" class="btn btn-outline-secondary rounded-pill d-none">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64"><path d="M0 0h24v24H0zm0 0h24v24H0z" fill="none"/><path d="M19 11h-1.7c0 .74-.16 1.43-.43 2.05l1.23 1.23c.56-.98.9-2.09.9-3.28zm-4.02.17c0-.06.02-.11.02-.17V5c0-1.66-1.34-3-3-3S9 3.34 9 5v.18l5.98 5.99zM4.27 3L3 4.27l6.01 6.01V11c0 1.66 1.33 3 2.99 3 .22 0 .44-.03.65-.08l1.66 1.66c-.71.33-1.5.52-2.31.52-2.76 0-5.3-2.1-5.3-5.1H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c.91-.13 1.77-.45 2.54-.9L19.73 21 21 19.73 4.27 3z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div id="catsWalk" class="pt-4" style="text-align:center; position:relative;">
+          <img onclick="catNyan()" id="kohacu" src="kohacu.webp" width="128" height="128" alt="kohacu">
+        </div>
+        <div>
+          <h4><ruby>問題<rt>もんだい</rt></ruby><ruby>例<rt>れい</rt></ruby></h4>
+          <p><ruby>以下<rt>いか</rt></ruby>のような<ruby>英文<rt>えいぶん</rt></ruby>が<ruby>出題<rt>しゅつだい</rt></ruby>されるので、<ruby>聞<rt>き</rt></ruby>き<ruby>分<rt>わ</rt></ruby>けて<ruby>答<rt>こた</rt></ruby>えてください。
+          </p>
+          <div class="d-flex flex-wrap">
+            <div class="px-3">
+              <h5>Lv.1</h5>
+              <table class="table table-sm table-striped text-center w-auto text-nowrap">
+                <tbody>
+                  <tr><th>Seven</th><th>plus</th><th>four</th><th>is</th><th class="table-primary">eleven.</th></tr>
+                  <tr><th>Seven</th><th>plus</th><th>four</th><th>equals</th><th class="table-primary">eleven.</th></tr>
+                  <tr><td>7</td><td>たす</td><td>4</td><td>は</td><td class="table-primary">11</td></tr>
+                  <tr><th>Eight</th><th>minus</th><th>two</th><th>is</th><th class="table-primary">six.</th></tr>
+                  <tr><th>Eight</th><th>take away</th><th>two</th><th>is</th><th class="table-primary">six.</th></tr>
+                  <tr><td>8</td><td>ひく</td><td>2</td><td>は</td><td class="table-primary">6</td></tr>
+                  <tr><th>Two</th><th>from</th><th>eight</th><th>is</th><th class="table-primary">six.</th></tr>
+                  <tr><td>2</td><td>から</td><td>8</td><td>までは</td><td class="table-primary">6</td></tr>
+                  <tr><th>Three</th><th>times</th><th>five</th><th>equals</th><th class="table-primary">fifteen.</th></tr>
+                  <tr><th>Three</th><th>multiplied by</th><th>five</th><th>equals</th><th class="table-primary">fifteen.</th></tr>
+                  <tr><td>3</td><td>かける</td><td>5</td><td>は</td><td class="table-primary">15</td></tr>
+                  <tr><th>Tweleve</th><th>divided by</th><th>three</th><th>is</th><th class="table-primary">four.</th></tr>
+                  <tr><td>12</td><td>わる</td><td>3</td><td>は</td><td class="table-primary">4</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="px-3">
+              <h5>Lv.2</h5>
+              <table class="table table-sm table-striped text-center w-auto text-nowrap">
+                <tbody>
+                  <tr><th>When you</th><th>add</th><th>seven</th><th>and</th><th>four,</th><th>you get</th><th class="table-primary">eleven.</th></tr>
+                  <tr><td>〜のとき</td><td>たす</td><td>7</td><td>と</td><td>4</td><td>こたえは</td><td class="table-primary">11</td></tr>
+                  <tr><th>What do</th><th>you get</th><th>if you</th><th>add</th><th>seven</th><th>and</th><th>four?</th><th class="table-primary">eleven.</th></tr>
+                  <tr><td>いくつ</td><td>になる</td><td>もし</td><td>たす</td><td>7</td><td>と</td><td>4</td><td class="table-primary">11</td></tr>
+                  <tr><th>When we</th><th>substract</th><th>two</th><th>from</th><th>eight,</th><th>we get</th><th class="table-primary">six.</th></tr>
+                  <tr><th>When you</th><th>take</th><th>two</th><th>away from</th><th>eight,</th><th>you get</th><th class="table-primary">six.</th></tr>
+                  <tr><td>〜のとき</td><td>ひく</td><td>2を</td><td>から</td><td>8</td><td>こたえは</td><td class="table-primary">6</td></tr>
+                  <tr><th>When we</th><th>multiply</th><th>three</th><th>by</th><th>five,</th><th>we get</th><th class="table-primary">fifteen.</th></tr>
+                  <tr><td>〜のとき</td><td>かける</td><td>3</td><td>によって</td><td>5</td><td>こたえは</td><td class="table-primary">15</td></tr>
+                  <tr><th>When you</th><th>divide</th><th>twelve</th><th>by</th><th>three,</th><th>you get</th><th class="table-primary">four.</th></tr>
+                  <tr><td>〜のとき</td><td>わる</td><td>12</td><td>によって</td><td>3</td><td>こたえは</td><td class="table-primary">4</td></tr>
+                  <tr><th>What do</th><th>you get</th><th>if you</th><th>divide</th><th>twelve</th><th>by</th><th>three?</th><th class="table-primary">four.</th></tr>
+                  <tr><td>いくつ</td><td>になる</td><td>もし</td><td>わる</td><td>12</td><td>によって</td><td>3</td><td class="table-primary">11</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="pt-4 alert text-center">
+      <div class="pt-3">
+        <a class="px-1" href="/">Home</a>
+        <a class="px-1" href="/terms/">Terms</a>
+        <a class="px-1" href="https://github.com/marmooo/calc-and-talk">Contact</a>
+      </div>
+      <div class="text-muted">&copy; <a href="https://github.com/marmooo">marmooo</a>
+      </div>
+    </footer>
+    <script src="index.js"></script>
+  </body>
+</html>
+
