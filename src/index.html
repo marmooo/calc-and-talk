@@ -35,7 +35,7 @@
       #counter {
         font-size:10rem; width:12rem; height:12rem; line-height:12rem; border-radius: 50%;
         background:tomato; margin:auto; }
-      #catsWalk { height:30vh; }
+      #catsWalk { height:30vh; text-align:center; position:relative; }
       #langRadio { max-height:100px; overflow-y:scroll; }
       img,canvas { cursor:pointer; touch-action:none; }
       html { overflow-x:hidden; }
@@ -144,7 +144,7 @@
             </button>
           </div>
         </div>
-        <div id="catsWalk" class="pt-4" style="text-align:center; position:relative;">
+        <div id="catsWalk" class="pt-4">
           <img onclick="catNyan()" id="kohacu" src="kohacu.webp" width="128" height="128" alt="kohacu">
         </div>
         <div>
@@ -152,7 +152,7 @@
           <p><ruby>以下<rt>いか</rt></ruby>のような<ruby>英文<rt>えいぶん</rt></ruby>が<ruby>出題<rt>しゅつだい</rt></ruby>されるので、<ruby>聞<rt>き</rt></ruby>き<ruby>分<rt>わ</rt></ruby>けて<ruby>答<rt>こた</rt></ruby>えてください。
           </p>
           <div class="d-flex flex-wrap">
-            <div class="px-3">
+            <div class="table-responsive px-3">
               <h5>Lv.1</h5>
               <table class="table table-sm table-striped text-center w-auto text-nowrap">
                 <tbody>
@@ -172,7 +172,7 @@
                 </tbody>
               </table>
             </div>
-            <div class="px-3">
+            <div class="table-responsive px-3">
               <h5>Lv.2</h5>
               <table class="table table-sm table-striped text-center w-auto text-nowrap">
                 <tbody>
