@@ -1,10 +1,10 @@
 let firstRun = true;
-let voiceInput = null;
 let problem = "Talk Numbers";
 let answer = "123";
 let catCounter = 0;
 let solveCount = 0;
 let englishVoices = [];
+const voiceInput = setVoiceInput();
 let endAudio, errorAudio, incorrectAudio, correctAudio;
 loadAudios();
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -112,7 +112,6 @@ function loadVoices() {
   });
   allVoicesObtained.then((voices) => {
     englishVoices = voices.filter((voice) => voice.lang == "en-US");
-    voiceInput = setVoiceInput();
   });
 }
 loadVoices();
