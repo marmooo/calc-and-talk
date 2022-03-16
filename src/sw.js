@@ -8,7 +8,7 @@ var urlsToCache = [
   "/calc-and-talk/mp3/cat.mp3",
   "/calc-and-talk/mp3/correct3.mp3",
   "/calc-and-talk/favicon/original.svg",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css",
+  "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
 ];
 
 self.addEventListener("install", function (event) {
