@@ -5,7 +5,7 @@ let catCounter = 0;
 let solveCount = 0;
 let englishVoices = [];
 const voiceInput = setVoiceInput();
-let endAudio, errorAudio, incorrectAudio, correctAudio;
+let endAudio, errorAudio, correctAudio;
 loadAudios();
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
@@ -79,20 +79,18 @@ function loadAudios() {
   promises = [
     loadAudio("mp3/end.mp3"),
     loadAudio("mp3/cat.mp3"),
-    loadAudio("mp3/incorrect1.mp3"),
     loadAudio("mp3/correct3.mp3"),
   ];
   Promise.all(promises).then((audioBuffers) => {
     endAudio = audioBuffers[0];
     errorAudio = audioBuffers[1];
-    incorrectAudio = audioBuffers[2];
-    correctAudio = audioBuffers[3];
+    correctAudio = audioBuffers[2];
   });
 }
 
 function loadVoices() {
   // https://stackoverflow.com/questions/21513706/
-  const allVoicesObtained = new Promise(function (resolve, reject) {
+  const allVoicesObtained = new Promise(function (resolve) {
     let voices = speechSynthesis.getVoices();
     if (voices.length !== 0) {
       resolve(voices);
@@ -199,7 +197,7 @@ function loadImage(src) {
 
 function loadCatImage(url) {
   const imgSize = 128;
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     loadImage(url).then((originalImg) => {
       const canvas = document.createElement("canvas");
       canvas.width = imgSize;
@@ -214,7 +212,7 @@ function loadCatImage(url) {
   });
 }
 loadCatImage("kohacu.webp").then((catCanvas) => {
-  catsWalk(100, catCanvas);
+  catsWalk(catCanvas);
 });
 
 function catWalk(freq, catCanvas) {
@@ -243,8 +241,8 @@ function catWalk(freq, catCanvas) {
   }, freq);
 }
 
-function catsWalk(freq, catCanvas) {
-  const timer = setInterval(function () {
+function catsWalk(catCanvas) {
+  setInterval(function () {
     if (Math.random() > 0.995) {
       catWalk(getRandomInt(5, 20), catCanvas);
     }
@@ -300,33 +298,6 @@ function scoring() {
   playPanel.classList.add("d-none");
   scorePanel.classList.remove("d-none");
   document.getElementById("score").textContent = solveCount;
-}
-
-function initCalc() {
-  const replyObj = document.getElementById("reply");
-  const scoreObj = document.getElementById("score");
-  document.getElementById("be").onclick = function () {
-    speak(problem);
-  };
-  document.getElementById("bc").onclick = function () {
-    replyObj.textContent = "";
-  };
-  for (let i = 0; i < 10; i++) {
-    document.getElementById("b" + i).onclick = function () {
-      let reply = replyObj.textContent;
-      reply += this.getAttribute("id").slice(-1);
-      replyObj.textContent = reply.slice(0, 8);
-      if (answer == reply) {
-        solveCount += 1;
-        playAudio(correctAudio);
-        replyObj.textContent = "";
-        scoreObj.textContent = parseInt(scoreObj.textContent) + 1;
-        nextProblem();
-      } else if (answer.slice(0, reply.length) != reply) {
-        playAudio(incorrectAudio);
-      }
-    };
-  }
 }
 
 function toEnglish1(type, a, b) {
@@ -386,7 +357,6 @@ function toEnglish2(type, a, b) {
 }
 
 function generateData() {
-  const grade = document.getElementById("gradeOption").selectedIndex;
   const course = document.getElementById("courseOption").selectedIndex;
   const range = [8, 2, 8, 2, 9, 0, 8, 2];
   let a, b, c, x, s;
@@ -478,112 +448,6 @@ function stopVoiceInput() {
   voiceInput.stop();
 }
 
-function toEnglish1(type, a, b) {
-  const sentences = [
-    [
-      "[a] plus [b] is",
-      "[a] plus [b] equals",
-    ],
-    [
-      "[a] minus [b] is",
-      "[a] minus [b] equals",
-      "[a] take away [b] is",
-      "[a] take away [b] equals",
-      "[b] from [a] is",
-      "[b] from [a] equals",
-    ],
-    [
-      "[a] times [b] is",
-      "[a] times [b] equals",
-      "[a] multiplied by [b] is",
-      "[a] multiplied by [b] equals",
-    ],
-    [
-      "[a] divided by [b] is",
-      "[a] divided by [b] equals",
-    ],
-  ];
-  const patterns = sentences[type];
-  const pattern = patterns[getRandomInt(0, patterns.length)];
-  return pattern.replace("[a]", a).replace("[b]", b);
-}
-
-function toEnglish2(type, a, b) {
-  const sentences = [
-    [
-      "When you add [a] and [b], you get",
-      "What do you get if you add [a] and [b]?",
-    ],
-    [
-      "When we substract [a] from [b], we get",
-      "When you take [a] away from [b], you get",
-      "What do you get if you substract [a] and [b]?",
-      "What do you get if you take [a] away from [b]?",
-    ],
-    [
-      "When we multiply [a] by [b], we get",
-      "What do you get if you multiply [a] by [b]?",
-    ],
-    [
-      "When you divide [a] by [b], you get",
-      "What do you get if you divide [a] by [b]?",
-    ],
-  ];
-  const patterns = sentences[type];
-  const pattern = patterns[getRandomInt(0, patterns.length)];
-  return pattern.replace("[a]", a).replace("[b]", b);
-}
-
-function generateData() {
-  const grade = document.getElementById("gradeOption").selectedIndex;
-  const course = document.getElementById("courseOption").selectedIndex;
-  const range = [8, 2, 8, 2, 9, 0, 8, 2];
-  let a, b, c, x, s;
-  switch (course) {
-    case 0:
-      s = Math.floor(Math.random() * 4);
-      break;
-    case 1:
-      s = Math.floor(Math.random() * 1);
-      break;
-    case 2:
-      s = Math.floor(Math.random() * 1);
-      break;
-    default:
-      s = course - 3;
-  }
-  switch (s) {
-    case 0:
-      a = Math.floor(Math.random() * range[0] + range[1]);
-      b = Math.floor(Math.random() * range[0] + range[1]);
-      c = a + b;
-      x = "＋";
-      break;
-    case 1:
-      b = Math.floor(Math.random() * range[2] + range[3]);
-      c = Math.floor(Math.random() * range[2] + range[3]);
-      a = b + c;
-      x = "−";
-      break;
-    case 2:
-      a = Math.floor(Math.random() * range[4] + range[5]);
-      b = Math.floor(Math.random() * range[4] + range[5]);
-      c = a * b;
-      x = "×";
-      break;
-    case 3:
-      b = Math.floor(Math.random() * range[6] + range[7]);
-      c = Math.floor(Math.random() * range[6] + range[7]);
-      a = b * c;
-      x = "÷";
-      break;
-    default:
-      console.log("error");
-  }
-  const operation = "＋−×÷";
-  return [a, operation.indexOf(x), b, c];
-}
-
 [...document.getElementsByTagName("table")].forEach((table) => {
   [...table.getElementsByTagName("tr")].forEach((tr) => {
     tr.onclick = function () {
@@ -596,6 +460,9 @@ document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("toggleVoice").onclick = toggleVoice;
 document.getElementById("restartButton").onclick = countdown;
 document.getElementById("startButton").onclick = countdown;
+document.getElementById("showAnswer").onclick = showAnswer;
+document.getElementById("kohacu").onclick = catNyan;
+document.getElementById("respeak").onclick = respeak;
 document.getElementById("startVoiceInput").onclick = startVoiceInput;
 document.getElementById("stopVoiceInput").onclick = stopVoiceInput;
 document.addEventListener("click", unlockAudio, {

@@ -99,14 +99,14 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
       <div id="gameStart" class="text-center d-none">
         <div id="countdown">
           <div id="counter">3</div>
-          <img onclick="catNyan()" src="kohacu.webp" width="128" height="128" alt="">
+          <img src="kohacu.webp" width="128" height="128" alt="">
         </div>
       </div>
       <div id="scorePanel" class="text-center pb-3 d-none">
         <h3 class="pt-3">
           <ruby>結果<rp>(</rp><rt>けっか</rt><rp>)</rp></ruby>
         </h3>
-        <img onclick="catNyan()" src="kohacu.webp" width="128" height="128" alt="">
+        <img src="kohacu.webp" width="128" height="128" alt="">
         <p>クリアしたのは・・・</p>
         <div class="h2 pb-3">
           <span id="score" class="h1">0</span> /
@@ -129,7 +129,7 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
               </div>
               <div>
                 <button id="startButton" class="btn btn-primary btn-lg m-1">スタート</button>
-                <button onclick="showAnswer()" class="btn btn-secondary btn-lg m-1">こたえ</button>
+                <button id="showAnswer" class="btn btn-secondary btn-lg m-1">こたえ</button>
               </div>
             </div>
           </div>
@@ -151,7 +151,7 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
           </div>
         </div>
         <div id="catsWalk" class="pt-4">
-          <img onclick="catNyan()" id="kohacu" src="kohacu.webp" width="128" height="128" alt="kohacu">
+          <img id="kohacu" src="kohacu.webp" width="128" height="128" alt="kohacu">
         </div>
         <div>
           <h4><ruby>問題<rt>もんだい</rt></ruby><ruby>例<rt>れい</rt></ruby></h4>
