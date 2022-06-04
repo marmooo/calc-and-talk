@@ -7,6 +7,7 @@ let problem = "Talk Numbers";
 let answer = "123";
 let catCounter = 0;
 let solveCount = 0;
+let totalCount = 0;
 let englishVoices = [];
 const voiceInput = setVoiceInput();
 let endAudio, errorAudio, correctAudio;
@@ -162,6 +163,7 @@ function showAnswer() {
 
 function nextProblem() {
   hideAnswer();
+  totalCount += 1;
   const [a, x, b, c] = generateData();
   const grade = document.getElementById("gradeOption").selectedIndex;
   switch (grade) {
@@ -271,7 +273,7 @@ function startGameTimer() {
 
 let countdownTimer;
 function countdown() {
-  solveCount = 0;
+  solveCount = totalCount = 0;
   firstRun = false;
   clearTimeout(countdownTimer);
   countPanel.classList.remove("d-none");
@@ -300,6 +302,7 @@ function scoring() {
   playPanel.classList.add("d-none");
   scorePanel.classList.remove("d-none");
   document.getElementById("score").textContent = solveCount;
+  document.getElementById("total").textContent = totalCount;
 }
 
 function toEnglish1(type, a, b) {
@@ -426,6 +429,7 @@ function setVoiceInput() {
       const reply = event.results[0][0].transcript;
       document.getElementById("reply").textContent = reply;
       if (reply.toLowerCase() == answer.toLowerCase()) {
+        solveCount += 1;
         playAudio(correctAudio);
         await sleep(500);
         nextProblem();
