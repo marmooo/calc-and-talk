@@ -1,3 +1,7 @@
+const playPanel = document.getElementById("playPanel");
+const countPanel = document.getElementById("countPanel");
+const scorePanel = document.getElementById("scorePanel");
+const gameTime = 120;
 let firstRun = true;
 let problem = "Talk Numbers";
 let answer = "123";
@@ -90,13 +94,13 @@ function loadAudios() {
 
 function loadVoices() {
   // https://stackoverflow.com/questions/21513706/
-  const allVoicesObtained = new Promise(function (resolve) {
+  const allVoicesObtained = new Promise((resolve) => {
     let voices = speechSynthesis.getVoices();
     if (voices.length !== 0) {
       resolve(voices);
     } else {
       let supported = false;
-      speechSynthesis.addEventListener("voiceschanged", function () {
+      speechSynthesis.addEventListener("voiceschanged", () => {
         supported = true;
         voices = speechSynthesis.getVoices();
         resolve(voices);
@@ -224,13 +228,13 @@ function catWalk(freq, catCanvas) {
   const size = 128;
   canvas.style.top = getRandomInt(0, height - size) + "px";
   canvas.style.left = width - size + "px";
-  canvas.addEventListener("click", function () {
+  canvas.addEventListener("click", () => {
     catCounter += 1;
     speak(catCounter);
-    this.remove();
+    canvas.remove();
   }, { once: true });
   area.appendChild(canvas);
-  const timer = setInterval(function () {
+  const timer = setInterval(() => {
     const x = parseInt(canvas.style.left) - 1;
     if (x > -size) {
       canvas.style.left = x + "px";
@@ -242,7 +246,7 @@ function catWalk(freq, catCanvas) {
 }
 
 function catsWalk(catCanvas) {
-  setInterval(function () {
+  setInterval(() => {
     if (Math.random() > 0.995) {
       catWalk(getRandomInt(5, 20), catCanvas);
     }
@@ -253,12 +257,10 @@ let gameTimer;
 function startGameTimer() {
   clearInterval(gameTimer);
   const timeNode = document.getElementById("time");
-  timeNode.textContent = "120秒 / 120秒";
-  gameTimer = setInterval(function () {
-    const arr = timeNode.textContent.split("秒 /");
-    const t = parseInt(arr[0]);
+  gameTimer = setInterval(() => {
+    const t = parseInt(timeNode.textContent);
     if (t > 0) {
-      timeNode.textContent = (t - 1) + "秒 /" + arr[1];
+      timeNode.textContent = t - 1;
     } else {
       clearInterval(gameTimer);
       playAudio(endAudio);
@@ -272,12 +274,12 @@ function countdown() {
   solveCount = 0;
   firstRun = false;
   clearTimeout(countdownTimer);
-  gameStart.classList.remove("d-none");
+  countPanel.classList.remove("d-none");
   playPanel.classList.add("d-none");
   scorePanel.classList.add("d-none");
   const counter = document.getElementById("counter");
   counter.textContent = 3;
-  countdownTimer = setInterval(function () {
+  countdownTimer = setInterval(() => {
     const colors = ["skyblue", "greenyellow", "violet", "tomato"];
     if (parseInt(counter.textContent) > 1) {
       const t = parseInt(counter.textContent) - 1;
@@ -285,7 +287,7 @@ function countdown() {
       counter.textContent = t;
     } else {
       clearTimeout(countdownTimer);
-      gameStart.classList.add("d-none");
+      countPanel.classList.add("d-none");
       playPanel.classList.remove("d-none");
       document.getElementById("score").textContent = 0;
       nextProblem();
@@ -414,10 +416,7 @@ function setVoiceInput() {
     // voiceInput.interimResults = true;
     voiceInput.continuous = true;
 
-    voiceInput.onstart = () => {
-      document.getElementById("startVoiceInput").classList.add("d-none");
-      document.getElementById("stopVoiceInput").classList.remove("d-none");
-    };
+    voiceInput.onstart = voiceInputOnStart;
     voiceInput.onend = () => {
       if (!speechSynthesis.speaking) {
         voiceInput.start();
@@ -437,20 +436,28 @@ function setVoiceInput() {
   }
 }
 
+function voiceInputOnStart() {
+  document.getElementById("startVoiceInput").classList.add("d-none");
+  document.getElementById("stopVoiceInput").classList.remove("d-none");
+}
+
+function voiceInputOnStop() {
+  document.getElementById("startVoiceInput").classList.remove("d-none");
+  document.getElementById("stopVoiceInput").classList.add("d-none");
+}
+
 function startVoiceInput() {
   voiceInput.start();
 }
 
 function stopVoiceInput() {
-  document.getElementById("startVoiceInput").classList.remove("d-none");
-  document.getElementById("stopVoiceInput").classList.add("d-none");
-  document.getElementById("reply").textContent = "英語で答えてください";
+  voiceInputOnStop();
   voiceInput.stop();
 }
 
 [...document.getElementsByTagName("table")].forEach((table) => {
   [...table.getElementsByTagName("tr")].forEach((tr) => {
-    tr.onclick = function () {
+    tr.onclick = () => {
       speak(tr.innerText);
     };
   });

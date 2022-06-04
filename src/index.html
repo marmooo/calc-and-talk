@@ -3,11 +3,11 @@
   <head prefix="og: http://ogp.me/ns#">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="四則演算の英文をリスニングしてタイプ暗算するゲームです。">
+    <meta name="description" content="四則演算の英文をリスニングして暗算し、英語で答えるゲームです。">
     <title>Calc and Talk</title>
     <meta property="og:title" content="Calc and Talk">
     <meta property="og:site_name" content="Calc and Talk">
-    <meta property="og:description" content="四則演算の英文をリスニングしてタイプ暗算するゲームです。">
+    <meta property="og:description" content="四則演算の英文をリスニングして暗算し、英語で答えるゲームです。">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://marmooo.github.io/calc-and-talk/">
     <meta property="og:image" content="https://marmooo.github.io/calc-and-talk/favicon/apple-touch-icon.png">
@@ -98,52 +98,35 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
       <div id="noSTT" class="alert alert-warning d-none">
         お使いのブラウザは音声認識に対応していません。Chrome をご利用ください。
       </div>
-      <div id="gameStart" class="text-center d-none">
-        <div id="countdown">
-          <div id="counter">3</div>
-          <img src="kohacu.webp" width="128" height="128" alt="">
-        </div>
-      </div>
-      <div id="scorePanel" class="text-center pb-3 d-none">
-        <h3 class="pt-3">
-          <ruby>結果<rp>(</rp><rt>けっか</rt><rp>)</rp></ruby>
-        </h3>
-        <img src="kohacu.webp" width="128" height="128" alt="">
-        <p>クリアしたのは・・・</p>
-        <div class="h2 pb-3">
-          <span id="score" class="h1">0</span> /
-          <span id="total" class="h1">0</span>
-          <ruby>問<rp>(</rp><rt>もん</rt><rp>)</rp></ruby>！
-        </div>
-        <button id="restartButton" type="button" class="btn btn-primary btn-lg m-1">リスタート</button>
-      </div>
       <div id="playPanel">
         <div class="row">
-          <div class="col-sm">
-            <p><ruby>四則演算<rt>しそくえんざん</rt></ruby>の<ruby>英文<rt>えいぶん</rt></ruby>をリスニングして<ruby>暗算<rt>あんざん</rt></ruby>し、<ruby>英語<rt>えいご</rt></ruby>で<ruby>答<rt>こた</rt></ruby>えるゲームです。
+          <div class="col-md">
+            <p>四則演算の英文をリスニングして暗算し、英語で答えるゲームです。
             </p>
           </div>
-          <div class="col-sm">
-            <div class="alert alert-info text-center">
-              <div class="h5">
-                <label><ruby>時間<rp>(</rp><rt>じかん</rt><rp>)</rp></ruby>:</label>
-                <span id="time" class="ms-1">120秒 / 120秒</span>
+          <div class="col-md text-center">
+            <div class="alert alert-info">
+              <div class="d-flex flex-wrap justify-content-center">
+                <div class="h5 text-nowrap notranslate">
+                  <span id="time">120</span>
+                  <span> / 120 sec</span>
+                </div>
               </div>
-              <div>
-                <button id="startButton" class="btn btn-primary btn-lg m-1">スタート</button>
-                <button id="showAnswer" class="btn btn-secondary btn-lg m-1">こたえ</button>
+              <div class="mt-2">
+                <button id="startButton" type="button" class="btn btn-primary btn-lg">スタート</button>
+                <button id="showAnswer" type="button" class="btn btn-secondary btn-lg">こたえ</button>
               </div>
             </div>
           </div>
         </div>
         <div class="text-center pt-3">
-          <div class="pb-3 h1">問題: <span id="answer"></span>
+          <div class="pb-3 h1">問題: <span id="answer" class="notranslate"></span>
             <button id="respeak" title="もう一度聴く" class="btn btn-outline-secondary btn-lg ms-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
             </button>
           </div>
           <div id="recognitionPanel" class="text-center pt-1">
-            <span id="reply" class="pe-2 h1"></span>
+            <span id="reply" class="pe-2 h1 notranslate"></span>
             <button id="startVoiceInput" title="音声入力を開始する" class="btn btn-outline-secondary rounded-pill">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="64" height="64"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
             </button>
@@ -156,26 +139,26 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
           <img id="kohacu" src="kohacu.webp" width="128" height="128" alt="kohacu">
         </div>
         <div>
-          <h4><ruby>問題<rt>もんだい</rt></ruby><ruby>例<rt>れい</rt></ruby></h4>
-          <p><ruby>以下<rt>いか</rt></ruby>のような<ruby>英文<rt>えいぶん</rt></ruby>が<ruby>出題<rt>しゅつだい</rt></ruby>されるので、<ruby>聞<rt>き</rt></ruby>き<ruby>分<rt>わ</rt></ruby>けて<ruby>答<rt>こた</rt></ruby>えてください。
+          <h4>問題例</h4>
+          <p>以下のような英文が出題されるので、聞き分けて答えてください。
           </p>
           <div class="d-flex flex-wrap">
             <div class="table-responsive px-3">
               <h5>Lv.1</h5>
               <table class="table table-sm table-striped text-center w-auto text-nowrap">
                 <tbody>
-                  <tr><th>Seven</th><th>plus</th><th>four</th><th>is</th><th class="table-primary">eleven.</th></tr>
-                  <tr><th>Seven</th><th>plus</th><th>four</th><th>equals</th><th class="table-primary">eleven.</th></tr>
+                  <tr class="notranslate"><th>Seven</th><th>plus</th><th>four</th><th>is</th><th class="table-primary">eleven.</th></tr>
+                  <tr class="notranslate"><th>Seven</th><th>plus</th><th>four</th><th>equals</th><th class="table-primary">eleven.</th></tr>
                   <tr><td>7</td><td>たす</td><td>4</td><td>は</td><td class="table-primary">11</td></tr>
-                  <tr><th>Eight</th><th>minus</th><th>two</th><th>is</th><th class="table-primary">six.</th></tr>
-                  <tr><th>Eight</th><th>take away</th><th>two</th><th>is</th><th class="table-primary">six.</th></tr>
+                  <tr class="notranslate"><th>Eight</th><th>minus</th><th>two</th><th>is</th><th class="table-primary">six.</th></tr>
+                  <tr class="notranslate"><th>Eight</th><th>take away</th><th>two</th><th>is</th><th class="table-primary">six.</th></tr>
                   <tr><td>8</td><td>ひく</td><td>2</td><td>は</td><td class="table-primary">6</td></tr>
-                  <tr><th>Two</th><th>from</th><th>eight</th><th>is</th><th class="table-primary">six.</th></tr>
+                  <tr class="notranslate"><th>Two</th><th>from</th><th>eight</th><th>is</th><th class="table-primary">six.</th></tr>
                   <tr><td>2</td><td>から</td><td>8</td><td>までは</td><td class="table-primary">6</td></tr>
-                  <tr><th>Three</th><th>times</th><th>five</th><th>equals</th><th class="table-primary">fifteen.</th></tr>
-                  <tr><th>Three</th><th>multiplied by</th><th>five</th><th>equals</th><th class="table-primary">fifteen.</th></tr>
+                  <tr class="notranslate"><th>Three</th><th>times</th><th>five</th><th>equals</th><th class="table-primary">fifteen.</th></tr>
+                  <tr class="notranslate"><th>Three</th><th>multiplied by</th><th>five</th><th>equals</th><th class="table-primary">fifteen.</th></tr>
                   <tr><td>3</td><td>かける</td><td>5</td><td>は</td><td class="table-primary">15</td></tr>
-                  <tr><th>Tweleve</th><th>divided by</th><th>three</th><th>is</th><th class="table-primary">four.</th></tr>
+                  <tr class="notranslate"><th>Tweleve</th><th>divided by</th><th>three</th><th>is</th><th class="table-primary">four.</th></tr>
                   <tr><td>12</td><td>わる</td><td>3</td><td>は</td><td class="table-primary">4</td></tr>
                 </tbody>
               </table>
@@ -184,18 +167,18 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
               <h5>Lv.2</h5>
               <table class="table table-sm table-striped text-center w-auto text-nowrap">
                 <tbody>
-                  <tr><th>When you</th><th>add</th><th>seven</th><th>and</th><th>four,</th><th>you get</th><th class="table-primary">eleven.</th><th></th></tr>
+                  <tr class="notranslate"><th>When you</th><th>add</th><th>seven</th><th>and</th><th>four,</th><th>you get</th><th class="table-primary">eleven.</th><th></th></tr>
                   <tr><td>〜のとき</td><td>たす</td><td>7</td><td>と</td><td>4</td><td>こたえは</td><td class="table-primary">11</td><td></td></tr>
-                  <tr><th>What do</th><th>you get</th><th>if you</th><th>add</th><th>seven</th><th>and</th><th>four?</th><th class="table-primary">eleven.</th></tr>
+                  <tr class="notranslate"><th>What do</th><th>you get</th><th>if you</th><th>add</th><th>seven</th><th>and</th><th>four?</th><th class="table-primary">eleven.</th></tr>
                   <tr><td>いくつ</td><td>になる</td><td>もし</td><td>たす</td><td>7</td><td>と</td><td>4</td><td class="table-primary">11</td></tr>
-                  <tr><th>When we</th><th>substract</th><th>two</th><th>from</th><th>eight,</th><th>we get</th><th class="table-primary">six.</th><td></td></tr>
-                  <tr><th>When you</th><th>take</th><th>two</th><th>away from</th><th>eight,</th><th>you get</th><th class="table-primary">six.</th><td></td></tr>
+                  <tr class="notranslate"><th>When we</th><th>substract</th><th>two</th><th>from</th><th>eight,</th><th>we get</th><th class="table-primary">six.</th><td></td></tr>
+                  <tr class="notranslate"><th>When you</th><th>take</th><th>two</th><th>away from</th><th>eight,</th><th>you get</th><th class="table-primary">six.</th><td></td></tr>
                   <tr><td>〜のとき</td><td>ひく</td><td>2を</td><td>から</td><td>8</td><td>こたえは</td><td class="table-primary">6</td><td></td></tr>
-                  <tr><th>When we</th><th>multiply</th><th>three</th><th>by</th><th>five,</th><th>we get</th><th class="table-primary">fifteen.</th><td></td></tr>
+                  <tr class="notranslate"><th>When we</th><th>multiply</th><th>three</th><th>by</th><th>five,</th><th>we get</th><th class="table-primary">fifteen.</th><td></td></tr>
                   <tr><td>〜のとき</td><td>かける</td><td>3</td><td>によって</td><td>5</td><td>こたえは</td><td class="table-primary">15</td><td></td></tr>
-                  <tr><th>When you</th><th>divide</th><th>twelve</th><th>by</th><th>three,</th><th>you get</th><th class="table-primary">four.</th><td></td></tr>
+                  <tr class="notranslate"><th>When you</th><th>divide</th><th>twelve</th><th>by</th><th>three,</th><th>you get</th><th class="table-primary">four.</th><td></td></tr>
                   <tr><td>〜のとき</td><td>わる</td><td>12</td><td>によって</td><td>3</td><td>こたえは</td><td class="table-primary">4</td><td></td></tr>
-                  <tr><th>What do</th><th>you get</th><th>if you</th><th>divide</th><th>twelve</th><th>by</th><th>three?</th><th class="table-primary">four.</th></tr>
+                  <tr class="notranslate"><th>What do</th><th>you get</th><th>if you</th><th>divide</th><th>twelve</th><th>by</th><th>three?</th><th class="table-primary">four.</th></tr>
                   <tr><td>いくつ</td><td>になる</td><td>もし</td><td>わる</td><td>12</td><td>によって</td><td>3</td><td class="table-primary">11</td></tr>
                 </tbody>
               </table>
@@ -203,14 +186,30 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
           </div>
         </div>
       </div>
+      <div id="countPanel" class="text-center d-none notranslate">
+        <div id="countdown">
+          <div id="counter">3</div>
+          <img src="kohacu.webp" width="128" height="128" alt="">
+        </div>
+      </div>
+      <div id="scorePanel" class="text-center pb-3 d-none notranslate">
+        <h3 class="pt-3">スコア</h3>
+        <img src="kohacu.webp" width="128" height="128" alt="">
+        <p>クリアしたのは・・・</p>
+        <div class="h2 pb-3">
+          <span id="score" class="h1">0</span> /
+          <span id="total" class="h1">0</span>
+        </div>
+        <button id="restartButton" type="button" class="btn btn-primary btn-lg m-1">リスタート</button>
+      </div>
     </main>
     <footer class="pt-4 alert text-center">
       <div class="table-responsive">
         <label>サポート状況 (2022):</label>
         <table class="table table-sm table-striped w-auto m-auto text-nowrap">
           <tbody>
-            <tr><th></th><th>Chrome</th><th>Edge</th><th>Safari</th><th>Firefox</th></tr>
-            <tr><td>音声認識</td><td>○</td><td>×</td><td>×</td><td>×</td></tr>
+            <tr class="notranslate"><th></th><th>Chrome</th><th>Edge</th><th>Safari</th><th>Firefox</th></tr>
+            <tr><td>音声認識</td><td>⭕</td><td>❌</td><td>❌</td><td>❌</td></tr>
           </tbody>
         </table>
       </div>
