@@ -129,6 +129,7 @@ function speak(text) {
   msg.lang = "en-US";
   voiceInput.stop();
   speechSynthesis.speak(msg);
+  return msg;
 }
 
 function respeak() {
