@@ -1,9 +1,8 @@
-var CACHE_NAME = "2023-02-17 00:15";
+var CACHE_NAME = "2023-04-03 00:15";
 var urlsToCache = [
   "/calc-and-talk/",
   "/calc-and-talk/kohacu.webp",
   "/calc-and-talk/index.js",
-  "/calc-and-talk/mp3/incorrect1.mp3",
   "/calc-and-talk/mp3/end.mp3",
   "/calc-and-talk/mp3/cat.mp3",
   "/calc-and-talk/mp3/correct3.mp3",
