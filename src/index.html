@@ -97,7 +97,7 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
       <div id="noSTT" class="alert alert-warning d-none">
         お使いのブラウザは音声認識に対応していません。Chrome をご利用ください。
       </div>
-      <div id="playPanel">
+      <div id="infoPanel">
         <div class="row">
           <div class="col-md">
             <p>四則演算の英文をリスニングして暗算し、英語で答えるゲームです。
@@ -118,6 +118,8 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
             </div>
           </div>
         </div>
+      </div>
+      <div id="playPanel">
         <div class="text-center pt-3">
           <div class="pb-3 h1">問題: <span id="answer" class="notranslate"></span>
             <button id="respeak" title="もう一度聴く" class="btn btn-outline-secondary btn-lg ms-2" type="button">
@@ -145,55 +147,77 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
             <div class="table-responsive px-3">
               <h5>Lv.1</h5>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>Seven</th><th>plus</th><th>four</th><th>is</th><th class="table-primary">eleven.</th></tr>
-                <tr class="notranslate"><th>Seven</th><th>plus</th><th>four</th><th>equals</th><th class="table-primary">eleven.</th></tr>
-                <tr><td>7</td><td>たす</td><td>4</td><td>は</td><td class="table-primary">11</td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>Seven</th><th>plus</th><th>four</th><th>is</th><th class="table-primary">eleven.</th></tr>
+                  <tr class="notranslate"><th>Seven</th><th>plus</th><th>four</th><th>equals</th><th class="table-primary">eleven.</th></tr>
+                  <tr><td>7</td><td>たす</td><td>4</td><td>は</td><td class="table-primary">11</td></tr>
+                </tbody>
               </table>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>Eight</th><th>minus</th><th>two</th><th>is</th><th class="table-primary">six.</th></tr>
-                <tr class="notranslate"><th>Eight</th><th>take away</th><th>two</th><th>is</th><th class="table-primary">six.</th></tr>
-                <tr><td>8</td><td>ひく</td><td>2</td><td>は</td><td class="table-primary">6</td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>Eight</th><th>minus</th><th>two</th><th>is</th><th class="table-primary">six.</th></tr>
+                  <tr class="notranslate"><th>Eight</th><th>take away</th><th>two</th><th>is</th><th class="table-primary">six.</th></tr>
+                  <tr><td>8</td><td>ひく</td><td>2</td><td>は</td><td class="table-primary">6</td></tr>
+                </tbody>
               </table>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>Two</th><th>from</th><th>eight</th><th>is</th><th class="table-primary">six.</th></tr>
-                <tr><td>2</td><td>から</td><td>8</td><td>までは</td><td class="table-primary">6</td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>Two</th><th>from</th><th>eight</th><th>is</th><th class="table-primary">six.</th></tr>
+                  <tr><td>2</td><td>から</td><td>8</td><td>までは</td><td class="table-primary">6</td></tr>
+                </tbody>
               </table>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>Three</th><th>times</th><th>five</th><th>equals</th><th class="table-primary">fifteen.</th></tr>
-                <tr class="notranslate"><th>Three</th><th>multiplied by</th><th>five</th><th>equals</th><th class="table-primary">fifteen.</th></tr>
-                <tr><td>3</td><td>かける</td><td>5</td><td>は</td><td class="table-primary">15</td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>Three</th><th>times</th><th>five</th><th>equals</th><th class="table-primary">fifteen.</th></tr>
+                  <tr class="notranslate"><th>Three</th><th>multiplied by</th><th>five</th><th>equals</th><th class="table-primary">fifteen.</th></tr>
+                  <tr><td>3</td><td>かける</td><td>5</td><td>は</td><td class="table-primary">15</td></tr>
+                </tbody>
               </table>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>Tweleve</th><th>divided by</th><th>three</th><th>is</th><th class="table-primary">four.</th></tr>
-                <tr><td>12</td><td>わる</td><td>3</td><td>は</td><td class="table-primary">4</td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>Tweleve</th><th>divided by</th><th>three</th><th>is</th><th class="table-primary">four.</th></tr>
+                  <tr><td>12</td><td>わる</td><td>3</td><td>は</td><td class="table-primary">4</td></tr>
+                </tbody>
               </table>
             </div>
             <div class="table-responsive px-3">
               <h5>Lv.2</h5>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>When you</th><th>add</th><th>seven</th><th>and</th><th>four,</th><th>you get</th><th class="table-primary">eleven.</th><th></th></tr>
-                <tr><td>〜のとき</td><td>たす</td><td>7</td><td>と</td><td>4</td><td>こたえは</td><td class="table-primary">11</td><td></td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>When you</th><th>add</th><th>seven</th><th>and</th><th>four,</th><th>you get</th><th class="table-primary">eleven.</th><th></th></tr>
+                  <tr><td>〜のとき</td><td>たす</td><td>7</td><td>と</td><td>4</td><td>こたえは</td><td class="table-primary">11</td><td></td></tr>
+                </tbody>
               </table>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>What do</th><th>you get</th><th>if you</th><th>add</th><th>seven</th><th>and</th><th>four?</th><th class="table-primary">eleven.</th></tr>
-                <tr><td>いくつ</td><td>になる</td><td>もし</td><td>たす</td><td>7</td><td>と</td><td>4</td><td class="table-primary">11</td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>What do</th><th>you get</th><th>if you</th><th>add</th><th>seven</th><th>and</th><th>four?</th><th class="table-primary">eleven.</th></tr>
+                  <tr><td>いくつ</td><td>になる</td><td>もし</td><td>たす</td><td>7</td><td>と</td><td>4</td><td class="table-primary">11</td></tr>
+                </tbody>
               </table>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>When we</th><th>substract</th><th>two</th><th>from</th><th>eight,</th><th>we get</th><th class="table-primary">six.</th><td></td></tr>
-                <tr class="notranslate"><th>When you</th><th>take</th><th>two</th><th>away from</th><th>eight,</th><th>you get</th><th class="table-primary">six.</th><td></td></tr>
-                <tr><td>〜のとき</td><td>ひく</td><td>2を</td><td>から</td><td>8</td><td>こたえは</td><td class="table-primary">6</td><td></td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>When we</th><th>substract</th><th>two</th><th>from</th><th>eight,</th><th>we get</th><th class="table-primary">six.</th><td></td></tr>
+                  <tr class="notranslate"><th>When you</th><th>take</th><th>two</th><th>away from</th><th>eight,</th><th>you get</th><th class="table-primary">six.</th><td></td></tr>
+                  <tr><td>〜のとき</td><td>ひく</td><td>2を</td><td>から</td><td>8</td><td>こたえは</td><td class="table-primary">6</td><td></td></tr>
+                </tbody>
               </table>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>When we</th><th>multiply</th><th>three</th><th>by</th><th>five,</th><th>we get</th><th class="table-primary">fifteen.</th><td></td></tr>
-                <tr><td>〜のとき</td><td>かける</td><td>3</td><td>によって</td><td>5</td><td>こたえは</td><td class="table-primary">15</td><td></td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>When we</th><th>multiply</th><th>three</th><th>by</th><th>five,</th><th>we get</th><th class="table-primary">fifteen.</th><td></td></tr>
+                  <tr><td>〜のとき</td><td>かける</td><td>3</td><td>によって</td><td>5</td><td>こたえは</td><td class="table-primary">15</td><td></td></tr>
+                </tbody>
               </table>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>When you</th><th>divide</th><th>twelve</th><th>by</th><th>three,</th><th>you get</th><th class="table-primary">four.</th><td></td></tr>
-                <tr><td>〜のとき</td><td>わる</td><td>12</td><td>によって</td><td>3</td><td>こたえは</td><td class="table-primary">4</td><td></td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>When you</th><th>divide</th><th>twelve</th><th>by</th><th>three,</th><th>you get</th><th class="table-primary">four.</th><td></td></tr>
+                  <tr><td>〜のとき</td><td>わる</td><td>12</td><td>によって</td><td>3</td><td>こたえは</td><td class="table-primary">4</td><td></td></tr>
+                </tbody>
               </table>
               <table role="button" class="table table-sm table-striped text-center w-auto text-nowrap">
-                <tr class="notranslate"><th>What do</th><th>you get</th><th>if you</th><th>divide</th><th>twelve</th><th>by</th><th>three?</th><th class="table-primary">four.</th></tr>
-                <tr><td>いくつ</td><td>になる</td><td>もし</td><td>わる</td><td>12</td><td>によって</td><td>3</td><td class="table-primary">11</td></tr>
+                <tbody>
+                  <tr class="notranslate"><th>What do</th><th>you get</th><th>if you</th><th>divide</th><th>twelve</th><th>by</th><th>three?</th><th class="table-primary">four.</th></tr>
+                  <tr><td>いくつ</td><td>になる</td><td>もし</td><td>わる</td><td>12</td><td>によって</td><td>3</td><td class="table-primary">11</td></tr>
+                </tbody>
               </table>
             </div>
           </div>

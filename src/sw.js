@@ -1,4 +1,4 @@
-var CACHE_NAME = "2023-04-03 00:15";
+var CACHE_NAME = "2023-06-10 12:40";
 var urlsToCache = [
   "/calc-and-talk/",
   "/calc-and-talk/kohacu.webp",
@@ -7,7 +7,6 @@ var urlsToCache = [
   "/calc-and-talk/mp3/cat.mp3",
   "/calc-and-talk/mp3/correct3.mp3",
   "/calc-and-talk/favicon/favicon.svg",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
 ];
 
 self.addEventListener("install", function (event) {
