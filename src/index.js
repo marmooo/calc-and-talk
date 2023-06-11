@@ -164,16 +164,11 @@ function hideAnswer() {
   document.getElementById("reply").textContent = "";
 }
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 function showAnswer() {
   const msg = speak(problem + " " + answer);
   if (!firstRun) {
-    msg.onend = async () => {
-      await sleep(2000);
-      nextProblem();
+    msg.onend = () => {
+      setTimeout(nextProblem, 2000);
     };
   }
   document.getElementById("reply").textContent = problem + " [ " + answer +
@@ -453,14 +448,13 @@ function setVoiceInput() {
         voiceInput.start();
       }
     };
-    voiceInput.onresult = async (event) => {
+    voiceInput.onresult = (event) => {
       const reply = event.results[0][0].transcript;
       document.getElementById("reply").textContent = reply;
       if (reply.toLowerCase() == answer.toLowerCase()) {
         solveCount += 1;
         playAudio("correct");
-        await sleep(500);
-        nextProblem();
+        setTimeout(nextProblem, 500);
       }
       voiceInput.stop();
     };
