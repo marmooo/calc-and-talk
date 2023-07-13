@@ -35,7 +35,7 @@
     <style>
       #counter {
         font-size:10rem; width:12rem; height:12rem; line-height:12rem; border-radius: 50%;
-        background:tomato; margin:auto; }
+        background:tomato; color:black; margin:auto; }
       #catsWalk { height:30vh; text-align:center; position:relative; }
       img,canvas { touch-action:none; }
       html { overflow-x:hidden; }
@@ -43,7 +43,7 @@
       @media (max-width: 768px) and (orientation: landscape) {
         .calc { font-size: 1.5rem; width:3rem; }
       }
-      html[data-bs-theme="dark"] .navbar-brand > img { filter: invert(1) hue-rotate(180deg); }
+      html[data-bs-theme="dark"] .favicon { filter: invert(1) hue-rotate(180deg); }
     </style>
     <script data-ad-client="ca-pub-6459713332128733" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </head>
@@ -52,7 +52,7 @@
       <nav class="navbar navbar-expand">
         <div class="container">
           <a class="navbar-brand" href="/calc-and-talk/">
-            <img alt="Calc and Talk" src="/calc-and-talk/favicon/favicon.svg" width="32" height="32">
+            <img class="favicon" alt="Calc and Talk" src="/calc-and-talk/favicon/favicon.svg" width="32" height="32">
             Calc and Talk
           </a>
           <div class="navbar-nav">
@@ -223,7 +223,7 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
       </div>
       <div id="countPanel" class="text-center d-none notranslate">
         <div id="countdown">
-          <div id="counter" class="text-dark"></div>
+          <div id="counter"></div>
           <img src="kohacu.webp" width="128" height="128" alt="">
         </div>
       </div>
