@@ -453,7 +453,7 @@ function setVoiceInput() {
       document.getElementById("reply").textContent = reply;
       if (reply.toLowerCase() == answer.toLowerCase()) {
         solveCount += 1;
-        playAudio("correct");
+        playAudio("correct", 0.3);
         setTimeout(nextProblem, 500);
       }
       voiceInput.stop();
