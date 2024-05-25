@@ -1,3 +1,5 @@
+import numberToWords from "https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/+esm";
+
 const playPanel = document.getElementById("playPanel");
 const infoPanel = document.getElementById("infoPanel");
 const countPanel = document.getElementById("countPanel");
@@ -6,7 +8,7 @@ const gameTime = 120;
 let gameTimer;
 let firstRun = true;
 let problem = "Talk Numbers";
-let answer = "123";
+let answer = "Talk Numbers";
 let catCounter = 0;
 let solveCount = 0;
 let totalCount = 0;
@@ -454,6 +456,22 @@ function generateData() {
   return [a, operation.indexOf(x), b, c];
 }
 
+function toWords(str) {
+  if (/[0-9]/.test(str)) {
+    if (/\d+(?:\.\d+)?/.test(str)) {
+      // 1.234, etc.
+      return numberToWords.toWords(str);
+    } else {
+      // 1,234, $567, \789, etc.
+      str = str.replace(/[^\d.-]/g, "");
+      return numberToWords.toWords(str);
+    }
+  } else {
+    // one hundred twenty three, etc.
+    return str;
+  }
+}
+
 function setVoiceInput() {
   if (!("webkitSpeechRecognition" in window)) {
     document.getElementById("noSTT").classList.remove("d-none");
@@ -472,7 +490,7 @@ function setVoiceInput() {
     voiceInput.onresult = (event) => {
       const reply = event.results[0][0].transcript;
       document.getElementById("reply").textContent = reply;
-      if (reply.toLowerCase() == answer.toLowerCase()) {
+      if (toWords(reply) === toWords(reply)) {
         solveCount += 1;
         playAudio("correct", 0.3);
         setTimeout(nextProblem, 500);
