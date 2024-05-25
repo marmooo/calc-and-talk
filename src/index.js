@@ -473,10 +473,10 @@ function toWords(str) {
 }
 
 function setVoiceInput() {
-  if (!("webkitSpeechRecognition" in window)) {
+  if (!globalThis.webkitSpeechRecognition) {
     document.getElementById("noSTT").classList.remove("d-none");
   } else {
-    const voiceInput = new webkitSpeechRecognition();
+    const voiceInput = new globalThis.webkitSpeechRecognition();
     voiceInput.lang = "en-US";
     // voiceInput.interimResults = true;
     voiceInput.continuous = true;
