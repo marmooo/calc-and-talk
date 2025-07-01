@@ -4,6 +4,8 @@ const playPanel = document.getElementById("playPanel");
 const infoPanel = document.getElementById("infoPanel");
 const countPanel = document.getElementById("countPanel");
 const scorePanel = document.getElementById("scorePanel");
+const replyPlease = document.getElementById("replyPlease");
+const reply = document.getElementById("reply");
 const gameTime = 120;
 let gameTimer;
 let firstRun = true;
@@ -189,7 +191,7 @@ function getRandomInt(min, max) {
 }
 
 function hideAnswer() {
-  document.getElementById("reply").textContent = "";
+  reply.textContent = "";
 }
 
 function showAnswer() {
@@ -199,8 +201,7 @@ function showAnswer() {
       setTimeout(nextProblem, 2000);
     };
   }
-  document.getElementById("reply").textContent = problem + " [ " + answer +
-    " ]";
+  reply.textContent = problem + " [ " + answer + " ]";
 }
 
 function nextProblem() {
@@ -493,12 +494,17 @@ function setVoiceInput() {
       voiceInput.start();
     };
     voiceInput.onresult = (event) => {
-      const reply = event.results[0][0].transcript;
-      document.getElementById("reply").textContent = reply;
-      if (toWords(reply) === toWords(reply)) {
+      const replyText = event.results[0][0].transcript;
+      reply.textContent = replyText;
+      if (toWords(replyText) === toWords(answer)) {
         solveCount += 1;
         playAudio("correct", 0.3);
-        setTimeout(nextProblem, 500);
+        nextProblem();
+        replyPlease.classList.remove("d-none");
+        reply.classList.add("d-none");
+      } else {
+        replyPlease.classList.add("d-none");
+        reply.classList.remove("d-none");
       }
       voiceInput.stop();
     };
@@ -510,6 +516,8 @@ function startVoiceInput() {
   voiceStopped = false;
   document.getElementById("startVoiceInput").classList.add("d-none");
   document.getElementById("stopVoiceInput").classList.remove("d-none");
+  replyPlease.classList.remove("d-none");
+  reply.classList.add("d-none");
   try {
     voiceInput.start();
   } catch {
@@ -521,7 +529,8 @@ function stopVoiceInput() {
   voiceStopped = true;
   document.getElementById("startVoiceInput").classList.remove("d-none");
   document.getElementById("stopVoiceInput").classList.add("d-none");
-  voiceInputOnStop();
+  replyPlease.classList.remove("d-none");
+  reply.classList.add("d-none");
   voiceInput.abort();
 }
 
