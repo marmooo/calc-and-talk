@@ -14,7 +14,9 @@ let solveCount = 0;
 let totalCount = 0;
 let englishVoices = [];
 let audioContext;
+let voiceStopped = false;
 const audioBufferCache = {};
+loadVoices();
 const voiceInput = setVoiceInput();
 loadConfig();
 
@@ -162,7 +164,6 @@ function loadVoices() {
       .filter((voice) => !jokeVoices.includes(voice.voiceURI));
   });
 }
-loadVoices();
 
 function speak(text) {
   speechSynthesis.cancel();
@@ -227,6 +228,7 @@ function nextProblem() {
   }
   answer = c.toString();
   speak(problem);
+  startVoiceInput();
 }
 
 function catNyan() {
@@ -340,6 +342,7 @@ function startGameTimer() {
       clearInterval(gameTimer);
       playAudio("end");
       scoring();
+      stopVoiceInput();
     }
   }, 1000);
 }
@@ -485,11 +488,9 @@ function setVoiceInput() {
     // voiceInput.interimResults = true;
     voiceInput.continuous = true;
 
-    voiceInput.onstart = voiceInputOnStart;
     voiceInput.onend = () => {
-      if (!speechSynthesis.speaking) {
-        voiceInput.start();
-      }
+      if (voiceStopped) return;
+      voiceInput.start();
     };
     voiceInput.onresult = (event) => {
       const reply = event.results[0][0].transcript;
@@ -505,23 +506,23 @@ function setVoiceInput() {
   }
 }
 
-function voiceInputOnStart() {
+function startVoiceInput() {
+  voiceStopped = false;
   document.getElementById("startVoiceInput").classList.add("d-none");
   document.getElementById("stopVoiceInput").classList.remove("d-none");
-}
-
-function voiceInputOnStop() {
-  document.getElementById("startVoiceInput").classList.remove("d-none");
-  document.getElementById("stopVoiceInput").classList.add("d-none");
-}
-
-function startVoiceInput() {
-  voiceInput.start();
+  try {
+    voiceInput.start();
+  } catch {
+    // continue regardless of error
+  }
 }
 
 function stopVoiceInput() {
+  voiceStopped = true;
+  document.getElementById("startVoiceInput").classList.remove("d-none");
+  document.getElementById("stopVoiceInput").classList.add("d-none");
   voiceInputOnStop();
-  voiceInput.stop();
+  voiceInput.abort();
 }
 
 [...document.getElementsByTagName("table")].forEach((table) => {
