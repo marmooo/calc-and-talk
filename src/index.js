@@ -297,7 +297,7 @@ function catsWalk(catCanvas) {
 }
 
 function countdown() {
-  speak(""); // unlock
+  speak("Ready"); // unlock
   solveCount = totalCount = 0;
   firstRun = false;
   countPanel.classList.remove("d-none");
